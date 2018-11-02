@@ -11,7 +11,8 @@ Plugin for BakkesMod that can be used to perform scientific experiments within R
 # Preparation
 - Compile with Visual studio, using the BakkesMod SDK.
 - Place the dll in `Binaries\Win32\bakkesmod\plugins` (within the RL installation folder).
-- To use the in-game settings menu (F2) for this plugin, the plugin should load on start-up of the game. For this, add a line with `plugin load scienceplugin` to `Binaries\Win32\bakkesmod\cfg\plugins.cfg`.
+- Place the .set file in `bakkesmod\plugins\settings`.
+- To use the in-game settings menu (F2) for this plugin, either make sure the plugin loads automatically when the games starts, or use the `cl_settings_refreshplugins` command.
 - For the input override to work, add an empty file called `debug.txt` to `Binaries\Win32\bakkesmod`.
 
 # How to use in-game
