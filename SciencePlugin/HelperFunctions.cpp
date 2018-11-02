@@ -10,7 +10,7 @@ std::string sp::rot_to_string(Rotator v, int prec)
 	return to_string_decimals(v.Pitch, prec) + ", " + to_string_decimals(v.Yaw, prec) + ", " + to_string_decimals(v.Roll, prec);
 }
 
-std::string sp::quat_to_string(FQuat v, int prec)
+std::string sp::quat_to_string(Quat v, int prec)
 {
 	return to_string_decimals(v.W, prec) + ", " + to_string_decimals(v.X, prec) + ", " + to_string_decimals(v.Y, prec) + ", " + to_string_decimals(v.Z, prec);
 }
@@ -30,7 +30,7 @@ bool sp::vector_eq(Vector v1, Vector v2)
 	return (v1.X == v2.X) && (v1.Y == v2.Y) && (v1.Z == v2.Z);
 }
 
-bool sp::quat_eq(FQuat q1, FQuat q2)
+bool sp::quat_eq(Quat q1, Quat q2)
 {
 	return (q1.W == q2.W) && (q1.X == q2.X) && (q1.Y == q2.Y) && (q1.Z == q2.Z);
 }
@@ -40,7 +40,7 @@ bool sp::rot_eq(Rotator r1, Rotator r2)
 	return (r1.Pitch == r2.Pitch) && (r1.Yaw == r2.Yaw) && (r1.Roll == r2.Roll);
 }
 
-Vector sp::quatToFwd(FQuat quat)
+Vector sp::quatToFwd(Quat quat)
 {
 	// Vector fwd = Vector(1 - 2 * (quat.X*quat.X + quat.Y*quat.Y), 2 * (quat.Y*quat.Z + quat.X*quat.W), -1 * (2 * (quat.X*quat.Z - quat.Y*quat.W)));
 
@@ -49,7 +49,7 @@ Vector sp::quatToFwd(FQuat quat)
 	return fwd;
 }
 
-Vector sp::quatToRight(FQuat quat)
+Vector sp::quatToRight(Quat quat)
 {
 	// Vector right = Vector(2 * (quat.Y*quat.Z - quat.X*quat.W), 1 - 2 * (quat.X*quat.X + quat.Z*quat.Z), -1 * (2 * (quat.X*quat.Y + quat.Z*quat.W)));
 
@@ -58,7 +58,7 @@ Vector sp::quatToRight(FQuat quat)
 	return right;
 }
 
-Vector sp::quatToUp(FQuat quat)
+Vector sp::quatToUp(Quat quat)
 {
 	// Vector up = Vector(2 * (quat.X*quat.Z + quat.Y*quat.W), 2 * (quat.X*quat.Y - quat.Z*quat.W), -1 * (1 - 2 * (quat.Y*quat.Y + quat.Z*quat.Z)));
 
@@ -67,14 +67,14 @@ Vector sp::quatToUp(FQuat quat)
 	return up;
 }
 
-Vector sp::rotateVectorWithQuat(Vector v, FQuat q)
+Vector sp::rotateVectorWithQuat(Vector v, Quat q)
 {
-	FQuat p;
+	Quat p;
 	p.W = 0;
 	p.X = v.X;
 	p.Y = v.Y;
 	p.Z = v.Z;
 
-	FQuat result = (q * p) * q.conjugate();
+	Quat result = (q * p) * q.conjugate();
 	return Vector(result.X, result.Y, result.Z);
 }

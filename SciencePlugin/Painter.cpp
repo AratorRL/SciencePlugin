@@ -73,16 +73,21 @@ void Painter::drawStringAt(CanvasWrapper cw, std::string text, int x, int y, Col
 	cw.DrawString(text);
 }
 
-void Painter::drawStringAt(CanvasWrapper cw, std::string text, Vector2 loc, Color col)
+void Painter::drawStringAt(CanvasWrapper cw, std::string text, Vector2_ loc, Color col)
 {
 	drawStringAt(cw, text, loc.X, loc.Y, col);
+}
+
+void Painter::drawLine(CanvasWrapper cw, Vector2_ v1, Vector2_ v2)
+{
+	cw.DrawLine({ v1.X, v1.Y }, { v2.X, v2.Y });
 }
 
 void Painter::drawRBStatePanel(CanvasWrapper cw, std::string title, RBState rbstate, int x, int y, bool recording)
 {
 	Vector loc = rbstate.Location;
 	Vector lin = rbstate.LinearVelocity;
-	FQuat quat = rbstate.Quaternion;
+	Quat quat = rbstate.Quaternion;
 	Vector ang = rbstate.AngularVelocity;
 
 	int marginLeft = 30;
@@ -145,7 +150,7 @@ void Painter::drawCarDerivedInfo(CanvasWrapper cw, CarWrapper car, int x, int y)
 
 	Vector loc = rbstate.Location;
 	Vector lin = rbstate.LinearVelocity;
-	FQuat quat = rbstate.Quaternion;
+	Quat quat = rbstate.Quaternion;
 	Vector ang = rbstate.AngularVelocity;
 
 	auto horVel = Vector(lin.X, lin.Y, 0);
@@ -247,7 +252,7 @@ void Painter::drawYawPlane(CanvasWrapper cw, CarWrapper car, int x, int y, float
 
 	Vector loc = rbstate.Location;
 	Vector lin = rbstate.LinearVelocity;
-	FQuat quat = rbstate.Quaternion;
+	Quat quat = rbstate.Quaternion;
 	Vector ang = rbstate.AngularVelocity;
 
 	Vector up = quatToUp(quat);
@@ -263,9 +268,9 @@ void Painter::drawYawPlane(CanvasWrapper cw, CarWrapper car, int x, int y, float
 		velHor.normalize();
 		velHor = velHor * fraction; // scale vector to range 0-100 to fit it in the panel
 	}
-	Vector2 velArrow(velHor.Y, -velHor.X);
+	Vector2_ velArrow(velHor.Y, -velHor.X);
 
-	Vector2 offset(x, y);
+	Vector2_ offset(x, y);
 
 	int width = 200;
 	int height = 200;
@@ -275,43 +280,43 @@ void Painter::drawYawPlane(CanvasWrapper cw, CarWrapper car, int x, int y, float
 	cw.FillBox({ (int)(width * scale), (int)(height * scale) });
 	cw.SetColor(COLOR_TEXT);
 
-	Vector2 center(100, 100);
-	Vector2 axisVer(0, -80);
-	Vector2 axisHor(80, 0);
-	Vector2 orientArrow(0, -90);
+	Vector2_ center(100, 100);
+	Vector2_ axisVer(0, -80);
+	Vector2_ axisHor(80, 0);
+	Vector2_ orientArrow(0, -90);
 
-	Vector2 angleLoc(10, 10);
-	Vector2 axisVerLabelLoc(-15, -85);
-	Vector2 axisHorLabelLoc(75, 5);
+	Vector2_ angleLoc(10, 10);
+	Vector2_ axisVerLabelLoc(-15, -85);
+	Vector2_ axisHorLabelLoc(75, 5);
 
 	// x-axis
-	cw.DrawLine(offset + center * scale, offset + (center + axisVer) * scale);
+	drawLine(cw, offset + center * scale, offset + (center + axisVer) * scale);
 	// y-axis
-	cw.DrawLine(offset + center * scale, offset + (center + axisHor) * scale);
+	drawLine(cw, offset + center * scale, offset + (center + axisHor) * scale);
 
 	float cosTheta = Vector::dot(fwdHor, Vector(1, 0, 0));
 	float theta = acos(cosTheta);
 	if ((Vector::cross(Vector(1, 0, 0), fwdHor)).Z > 0) { theta = -theta; }
 
 	// approximate shape/size of octane
-	Vector2 frontLeft(-42, -73);
-	Vector2 frontRight(42, -73);
-	Vector2 backLeft(-42, 45);
-	Vector2 backRight(42, 45);
+	Vector2_ frontLeft(-42, -73);
+	Vector2_ frontRight(42, -73);
+	Vector2_ backLeft(-42, 45);
+	Vector2_ backRight(42, 45);
 
 	// front and back of car
-	cw.DrawLine(offset + (center + frontLeft.rotate(theta)) * scale, offset + (center + frontRight.rotate(theta)) * scale);
-	cw.DrawLine(offset + (center + backLeft.rotate(theta)) * scale, offset + (center + backRight.rotate(theta)) * scale);
-	cw.DrawLine(offset + (center + frontLeft.rotate(theta)) * scale, offset + (center + backLeft.rotate(theta)) * scale);
-	cw.DrawLine(offset + (center + frontRight.rotate(theta)) * scale, offset + (center + backRight.rotate(theta)) * scale);
+	drawLine(cw, offset + (center + frontLeft.rotate(theta)) * scale, offset + (center + frontRight.rotate(theta)) * scale);
+	drawLine(cw, offset + (center + backLeft.rotate(theta)) * scale, offset + (center + backRight.rotate(theta)) * scale);
+	drawLine(cw, offset + (center + frontLeft.rotate(theta)) * scale, offset + (center + backLeft.rotate(theta)) * scale);
+	drawLine(cw, offset + (center + frontRight.rotate(theta)) * scale, offset + (center + backRight.rotate(theta)) * scale);
 
 	// fwd arrow
 	cw.SetColor(255, 255, 255, 128);
-	cw.DrawLine(offset + center * scale, offset + (center + orientArrow.rotate(theta)) * scale);
+	drawLine(cw, offset + center * scale, offset + (center + orientArrow.rotate(theta)) * scale);
 
 	// velocity arrow
 	cw.SetColor(0, 255, 0, 255);
-	cw.DrawLine(offset + center * scale, offset + (center + velArrow) * scale);
+	drawLine(cw, offset + center * scale, offset + (center + velArrow) * scale);
 
 	this->drawStringAt(cw, sp::to_string(theta), offset + angleLoc * scale);
 	this->drawStringAt(cw, "x", offset + (center + axisVerLabelLoc) * scale);

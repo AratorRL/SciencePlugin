@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <sstream>
 
-#include "bakkesmod\plugin\bakkesmodplugin.h"
+#include "bakkesmod\wrappers\wrapperstructs.h"
 
 namespace sp
 {
@@ -29,19 +29,19 @@ namespace sp
 
 	std::string vector_to_string(Vector v, int prec = 2);
 	std::string rot_to_string(Rotator v, int prec = 8);
-	std::string quat_to_string(FQuat v, int prec = 10);
+	std::string quat_to_string(Quat v, int prec = 10);
 
 	std::string to_string(float f, int prec = 2);
 	std::string to_string_scientific(float f, int prec = 11, int treshold = 4);
 
 	bool vector_eq(Vector v1, Vector v2);
-	bool quat_eq(FQuat q1, FQuat q2);
+	bool quat_eq(Quat q1, Quat q2);
 	bool rot_eq(Rotator r1, Rotator r2);
 
-	Vector quatToFwd(FQuat quat);
-	Vector quatToRight(FQuat quat);
-	Vector quatToUp(FQuat quat);
+	Vector quatToFwd(Quat quat);
+	Vector quatToRight(Quat quat);
+	Vector quatToUp(Quat quat);
 
-	Vector rotateVectorWithQuat(Vector v, FQuat q);
+	Vector rotateVectorWithQuat(Vector v, Quat q);
 
 }
