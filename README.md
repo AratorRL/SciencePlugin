@@ -9,7 +9,7 @@ Plugin for BakkesMod that can be used to perform scientific experiments within R
 - Bunch of setters and getters
 
 # Preparation
-- Compile with Visual studio, using the BakkesMod SDK. Note: replace `wrapperstructs.h` in that SDK with the `BakkesModSDK/wrapperstructs.h` in this repo (it has some small additions).
+- Compile with Visual studio, using the BakkesMod SDK.
 - Place the dll in `Binaries\Win32\bakkesmod\plugins` (within the RL installation folder).
 - To use the in-game settings menu (F2) for this plugin, the plugin should load on start-up of the game. For this, add a line with `plugin load scienceplugin` to `Binaries\Win32\bakkesmod\cfg\plugins.cfg`.
 - For the input override to work, add an empty file called `debug.txt` to `Binaries\Win32\bakkesmod`.
