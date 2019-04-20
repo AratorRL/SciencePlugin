@@ -15,7 +15,7 @@ using namespace sp;
 void Painter::initDrawables()
 {
 	gameWrapper->RegisterDrawable([this](CanvasWrapper cw) {
-		if (!gameWrapper->IsInTutorial()) {
+		if (!gameWrapper->IsInFreeplay()) {
 			return;
 		}
 
@@ -152,6 +152,7 @@ void Painter::drawCarDerivedInfo(CanvasWrapper cw, CarWrapper car, int x, int y)
 	Vector lin = rbstate.LinearVelocity;
 	Quat quat = rbstate.Quaternion;
 	Vector ang = rbstate.AngularVelocity;
+	Rotator rot = car.GetRotation();
 
 	auto horVel = Vector(lin.X, lin.Y, 0);
 
@@ -244,6 +245,13 @@ void Painter::drawCarDerivedInfo(CanvasWrapper cw, CarWrapper car, int x, int y)
 
 	this->drawStringAt(cw, "Right steer", x + marginLeft, y + currentLine);
 	this->drawStringAt(cw, sp::to_string(wheels.Get(1).GetSteer2(), 6), x + marginLeft + nameSpacing, y + currentLine);
+
+	currentLine += lineSpacing;
+
+	this->drawStringAt(cw, "Rotator", x + marginLeft, y + currentLine);
+	this->drawStringAt(cw, sp::to_string(rot.Pitch), x + marginLeft + nameSpacing, y + currentLine);
+	this->drawStringAt(cw, sp::to_string(rot.Yaw), x + marginLeft + nameSpacing + vecSpacing, y + currentLine);
+	this->drawStringAt(cw, sp::to_string(rot.Roll), x + marginLeft + nameSpacing + vecSpacing * 2, y + currentLine);
 }
 
 void Painter::drawYawPlane(CanvasWrapper cw, CarWrapper car, int x, int y, float scale)

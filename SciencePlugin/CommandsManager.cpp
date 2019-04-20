@@ -147,7 +147,7 @@ void CommandsManager::addCommands()
 			float x = get_safe_float(commands.at(1));
 			float y = get_safe_float(commands.at(2));
 			float z = get_safe_float(commands.at(3));
-			TutorialWrapper tutorial = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			VehicleWrapper vehicle = (VehicleWrapper)gameCar;
@@ -173,7 +173,7 @@ void CommandsManager::addCommands()
 			float x = get_safe_float(commands.at(1));
 			float y = get_safe_float(commands.at(2));
 			float z = get_safe_float(commands.at(3));
-			TutorialWrapper tutorial = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			VehicleWrapper vehicle = (VehicleWrapper)gameCar;
@@ -199,7 +199,7 @@ void CommandsManager::addCommands()
 			float x = get_safe_float(commands.at(1));
 			float y = get_safe_float(commands.at(2));
 			float z = get_safe_float(commands.at(3));
-			TutorialWrapper tutorial = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			VehicleWrapper vehicle = (VehicleWrapper)gameCar;
@@ -226,7 +226,7 @@ void CommandsManager::addCommands()
 			float x = get_safe_float(commands.at(2));
 			float y = get_safe_float(commands.at(3));
 			float z = get_safe_float(commands.at(4));
-			TutorialWrapper tutorial = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			VehicleWrapper vehicle = (VehicleWrapper)gameCar;
@@ -250,7 +250,7 @@ void CommandsManager::addCommands()
 	cvarManager->registerNotifier("resetCar", [this](std::vector<string> commands) {
 		if (commands.size() > 0)
 		{
-			TutorialWrapper tutorial = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			auto rbstate = gameCar.GetRBState();
@@ -272,7 +272,7 @@ void CommandsManager::addCommands()
 		{
 			std::string s = commands.at(1);
 			float f = get_safe_float(s);
-			TutorialWrapper tutorial = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			auto rbstate = gameCar.GetRBState();
@@ -292,7 +292,7 @@ void CommandsManager::addCommands()
 		{
 			std::string s = commands.at(1);
 			float f = get_safe_float(s);
-			TutorialWrapper tutorial = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			gameCar.SetMass(f);
@@ -307,7 +307,7 @@ void CommandsManager::addCommands()
 		{
 			std::string s = commands.at(1);
 			bool b = get_safe_bool(s);
-			TutorialWrapper tutorial = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			gameCar.SetbOnGround((unsigned long)b);
@@ -321,7 +321,7 @@ void CommandsManager::addCommands()
 		{
 			std::string s = commands.at(1);
 			bool b = get_safe_bool(s);
-			TutorialWrapper tutorial = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			gameCar.GetVehicleSim().SetbUseAckermannSteering(b);
@@ -331,7 +331,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getUseAckermannSteering", [this](std::vector<string> commands) {
-		TutorialWrapper tutorial = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
 		CarWrapper gameCar = tutorial.GetGameCar();
 
 		auto b = gameCar.GetVehicleSim().GetbUseAckermannSteering();
@@ -344,7 +344,7 @@ void CommandsManager::addCommands()
 		{
 			auto s = commands.at(1);
 			float f = get_safe_float(s);
-			TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper training = gameWrapper->GetGameEventAsServer();
 			CarWrapper car = training.GetGameCar();
 			auto vehicleSim = car.GetVehicleSim();
 			vehicleSim.SetDriveTorque(f);
@@ -354,7 +354,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getDriveTorque", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		auto logString = "drive torque: " + std::to_string(vehicleSim.GetDriveTorque());
@@ -366,7 +366,7 @@ void CommandsManager::addCommands()
 		{
 			auto s = commands.at(1);
 			float f = get_safe_float(s);
-			TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper training = gameWrapper->GetGameEventAsServer();
 			CarWrapper car = training.GetGameCar();
 			auto vehicleSim = car.GetVehicleSim();
 			vehicleSim.SetBrakeTorque(f);
@@ -376,7 +376,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getBrakeTorque", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		auto logString = "brake torque: " + std::to_string(vehicleSim.GetBrakeTorque());
@@ -388,7 +388,7 @@ void CommandsManager::addCommands()
 		{
 			auto s = commands.at(1);
 			float f = get_safe_float(s);
-			TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper training = gameWrapper->GetGameEventAsServer();
 			CarWrapper car = training.GetGameCar();
 			auto vehicleSim = car.GetVehicleSim();
 			vehicleSim.SetStopThreshold(f);
@@ -398,7 +398,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getStopThreshold", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		auto logString = "stop threshold: " + std::to_string(vehicleSim.GetStopThreshold());
@@ -410,7 +410,7 @@ void CommandsManager::addCommands()
 		{
 			auto s = commands.at(1);
 			float f = get_safe_float(s);
-			TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper training = gameWrapper->GetGameEventAsServer();
 			CarWrapper car = training.GetGameCar();
 			auto vehicleSim = car.GetVehicleSim();
 			vehicleSim.SetIdleBrakeFactor(f);
@@ -420,7 +420,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getIdleBrakeFactor", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		auto logString = "idle brake factor: " + std::to_string(vehicleSim.GetIdleBrakeFactor());
@@ -432,7 +432,7 @@ void CommandsManager::addCommands()
 		{
 			auto s = commands.at(1);
 			float f = get_safe_float(s);
-			TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper training = gameWrapper->GetGameEventAsServer();
 			CarWrapper car = training.GetGameCar();
 			auto vehicleSim = car.GetVehicleSim();
 			vehicleSim.SetOppositeBrakeFactor(f);
@@ -442,7 +442,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getOppositeBrakeFactor", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		auto logString = "opposite brake factor: " + std::to_string(vehicleSim.GetOppositeBrakeFactor());
@@ -450,7 +450,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getSuspensionStiffness", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();
@@ -465,7 +465,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getSuspensionDampingCompression", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();
@@ -480,7 +480,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getSuspensionDampingRelaxation", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();
@@ -495,7 +495,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getSuspensionTravel", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();
@@ -510,7 +510,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getSuspensionMaxRaise", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();
@@ -529,7 +529,7 @@ void CommandsManager::addCommands()
 		{
 			auto s = commands.at(1);
 			float f = get_safe_float(s);
-			TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper training = gameWrapper->GetGameEventAsServer();
 			CarWrapper car = training.GetGameCar();
 			auto vehicleSim = car.GetVehicleSim();
 			ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();
@@ -546,7 +546,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getSpinSpeedDecayRate", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();
@@ -570,7 +570,7 @@ void CommandsManager::addCommands()
 			if (i < 0 || i > 3) {
 				return;
 			}
-			TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+			ServerWrapper training = gameWrapper->GetGameEventAsServer();
 			CarWrapper car = training.GetGameCar();
 			auto vehicleSim = car.GetVehicleSim();
 			ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();
@@ -581,7 +581,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getSpinSpeed", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();
@@ -596,7 +596,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getSteer", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();
@@ -611,7 +611,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getSuspensionDistance", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();
@@ -626,7 +626,7 @@ void CommandsManager::addCommands()
 	}, "", 0);
 
 	cvarManager->registerNotifier("getRefWheelLocation", [this](std::vector<string> commands) {
-		TutorialWrapper training = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
 		ArrayWrapper<WheelWrapper> wheels = vehicleSim.GetWheels();

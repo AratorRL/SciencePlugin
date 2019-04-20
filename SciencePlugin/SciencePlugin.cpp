@@ -44,7 +44,7 @@ void SciencePlugin::onUnLoad()
 
 void SciencePlugin::OnViewportTick()
 {
-	if (!gameWrapper->IsInTutorial()) {
+	if (!gameWrapper->IsInFreeplay()) {
 		return;
 	}
 
@@ -125,7 +125,7 @@ void SciencePlugin::OnViewportTick()
 			cvarManager->log("Dump file opened");
 		}
 
-		TutorialWrapper game = gameWrapper->GetGameEventAsTutorial();
+		ServerWrapper game = gameWrapper->GetGameEventAsServer();
 		auto car = game.GetGameCar();
 		auto rbstate = car.GetRBState();
 		//auto changed = rbstate.bNewData;
@@ -186,7 +186,7 @@ void SciencePlugin::OnViewportTick()
 
 void SciencePlugin::OnSetInput()
 {
-	if (!gameWrapper->IsInTutorial()) {
+	if (!gameWrapper->IsInFreeplay()) {
 		return;
 	}
 	
