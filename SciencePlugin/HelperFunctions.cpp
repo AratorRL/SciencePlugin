@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include "HelperFunctions.h"
 
 std::string sp::vector_to_string(Vector v, int prec)
@@ -77,4 +79,93 @@ Vector sp::rotateVectorWithQuat(Vector v, Quat q)
 
 	Quat result = (q * p) * q.conjugate();
 	return Vector(result.X, result.Y, result.Z);
+}
+
+Rotator sp::quatToRot(Quat q)
+{
+	Vector fwd = quatToFwd(q);
+	Vector up = quatToUp(q);
+	Vector right = quatToRight(q);
+
+
+	// pitch
+
+	float pitch_f = asin(fwd.Z);
+	int pitch = (pitch_f / (M_PI / 2)) * 16384;
+
+
+
+	// roll
+
+	Vector vert = Vector(0, 0, 1);
+	if (up.Z < 0)
+	{
+		vert = Vector(0, 0, -1);
+	}
+	Vector hor_right = Vector::cross(fwd, vert);
+	hor_right = { -hor_right.X, -hor_right.Y, -hor_right.Z }; // left-handed coordinate system
+	hor_right.normalize();
+	float roll_cos = Vector::dot(hor_right, right);
+	float roll_f = acos(roll_cos);
+	
+	float up_f = asin(up.Z);
+	
+	if (right.Z >= 0)
+	{
+		if (up.Z >= 0)
+		{
+			roll_f = -roll_f;
+		}
+		else
+		{
+			roll_f  = -M_PI + roll_f;
+		}
+	}
+	else
+	{
+		if (up.Z >= 0)
+		{
+			roll_f = roll_f;
+		}
+		else
+		{
+			roll_f = M_PI - roll_f;
+		}
+	}
+
+	int roll = (roll_f / M_PI) * 32768;
+
+
+
+	// yaw
+
+	float hor_mag = sqrt(fwd.X * fwd.X + fwd.Y * fwd.Y);
+	float hor_y = fwd.Y / hor_mag;
+	float fwd_y = asin(hor_y);
+	if (fwd_y >= 0)
+	{
+		if (fwd.X >= 0)
+		{
+			fwd_y = fwd_y;
+		}
+		else
+		{
+			fwd_y = M_PI - fwd_y;
+		}
+	}
+	else
+	{
+		if (fwd.X >= 0)
+		{
+			fwd_y = fwd_y;
+		}
+		else
+		{
+			fwd_y = -M_PI - fwd_y;
+		}
+	}
+
+	int yaw = (fwd_y / M_PI) * 32768;
+
+	return Rotator(pitch, yaw, roll);
 }
