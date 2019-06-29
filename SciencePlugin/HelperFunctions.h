@@ -45,5 +45,5 @@ namespace sp
 	Vector rotateVectorWithQuat(Vector v, Quat q);
 
 	Rotator quatToRot(Quat q);
-
+	Quat rotToQuat(Rotator rot);
 }

@@ -39,9 +39,9 @@ void Painter::drawPanels(CanvasWrapper cw)
 			drawRBStatePanel(cw, "Car RBState", rbstate, 20, 50, cvarManager->getCvar("recordCarInfo").getBoolValue());
 		}
 
-		if (cvarManager->getCvar("showCarDerivedInfo").getBoolValue())
+		if (cvarManager->getCvar("showCalculatedCarInfo").getBoolValue())
 		{
-			drawCarDerivedInfo(cw, car, 1350, 50);
+			drawCalculatedCarInfo(cw, car, 1350, 50);
 		}
 
 		if (cvarManager->getCvar("showInput").getBoolValue())
@@ -68,7 +68,8 @@ void Painter::drawPanels(CanvasWrapper cw)
 
 void Painter::drawStringAt(CanvasWrapper cw, std::string text, int x, int y, Color col)
 {
-	cw.SetPosition({ x, y });
+	Vector2 pos = { x , y };
+	cw.SetPosition(pos);
 	cw.SetColor(col.r, col.g, col.b, col.a);
 	cw.DrawString(text);
 }
@@ -80,7 +81,9 @@ void Painter::drawStringAt(CanvasWrapper cw, std::string text, Vector2_ loc, Col
 
 void Painter::drawLine(CanvasWrapper cw, Vector2_ v1, Vector2_ v2)
 {
-	cw.DrawLine({ v1.X, v1.Y }, { v2.X, v2.Y });
+	Vector2 start = { v1.X, v1.Y };
+	Vector2 end = { v2.X, v2.Y };
+	cw.DrawLine(start, end);
 }
 
 void Painter::drawRBStatePanel(CanvasWrapper cw, std::string title, RBState rbstate, int x, int y, bool recording)
@@ -102,9 +105,11 @@ void Painter::drawRBStatePanel(CanvasWrapper cw, std::string title, RBState rbst
 	int width = 620;
 	int height = 210;
 
-	cw.SetPosition({ x, y });
+	Vector2 pos = { x, y };
+	cw.SetPosition(pos);
 	cw.SetColor(COLOR_PANEL);
-	cw.FillBox({ width, height });
+	Vector2 box = { width, height };
+	cw.FillBox(box);
 	cw.SetColor(COLOR_TEXT);
 	
 	this->drawStringAt(cw, title, x + marginLeft, y + marginTop);
@@ -144,7 +149,7 @@ void Painter::drawRBStatePanel(CanvasWrapper cw, std::string title, RBState rbst
 	this->drawStringAt(cw, sp::to_string(ang.Z, 4), x + marginLeft + nameSpacing + vecSpacing * 2, y + currentLine);
 }
 
-void Painter::drawCarDerivedInfo(CanvasWrapper cw, CarWrapper car, int x, int y)
+void Painter::drawCalculatedCarInfo(CanvasWrapper cw, CarWrapper car, int x, int y)
 {
 	RBState rbstate = car.GetRBState();
 
@@ -181,12 +186,14 @@ void Painter::drawCarDerivedInfo(CanvasWrapper cw, CarWrapper car, int x, int y)
 
 	int lineSpacing = 30;
 
-	cw.SetPosition({ x, y });
+	Vector2 pos = { x, y };
+	cw.SetPosition(pos);
 	cw.SetColor(COLOR_PANEL);
-	cw.FillBox({ 550, 410 });
+	Vector2 box = { 550, 410 };
+	cw.FillBox(box);
 	cw.SetColor(COLOR_TEXT);
 
-	this->drawStringAt(cw, "Car derived info", x + marginLeft, y + marginTop);
+	this->drawStringAt(cw, "Calculated car info", x + marginLeft, y + marginTop);
 
 	int currentLine = marginTop + 50;
 
@@ -252,6 +259,7 @@ void Painter::drawCarDerivedInfo(CanvasWrapper cw, CarWrapper car, int x, int y)
 	this->drawStringAt(cw, sp::to_string(rot.Pitch), x + marginLeft + nameSpacing, y + currentLine);
 	this->drawStringAt(cw, sp::to_string(rot.Yaw), x + marginLeft + nameSpacing + vecSpacing, y + currentLine);
 	this->drawStringAt(cw, sp::to_string(rot.Roll), x + marginLeft + nameSpacing + vecSpacing * 2, y + currentLine);
+
 }
 
 void Painter::drawYawPlane(CanvasWrapper cw, CarWrapper car, int x, int y, float scale)
@@ -283,9 +291,11 @@ void Painter::drawYawPlane(CanvasWrapper cw, CarWrapper car, int x, int y, float
 	int width = 200;
 	int height = 200;
 
-	cw.SetPosition({ x, y });
+	Vector2 pos = { x, y };
+	cw.SetPosition(pos);
 	cw.SetColor(COLOR_PANEL);
-	cw.FillBox({ (int)(width * scale), (int)(height * scale) });
+	Vector2 box = { (int)(width * scale), (int)(height * scale) };
+	cw.FillBox(box);
 	cw.SetColor(COLOR_TEXT);
 
 	Vector2_ center(100, 100);
@@ -345,9 +355,11 @@ void Painter::drawInputPanel(CanvasWrapper cw, CarWrapper car, int x, int y)
 
 	int lineSpacing = 30;
 
-	cw.SetPosition({ x, y });
+	Vector2 pos = { x, y };
+	cw.SetPosition(pos);
 	cw.SetColor(COLOR_PANEL);
-	cw.FillBox({ 420, 280 });
+	Vector2 box = { 420, 280 };
+	cw.FillBox(box);
 	cw.SetColor(COLOR_TEXT);
 
 	this->drawStringAt(cw, "Player input", x + marginLeft, y + marginTop);

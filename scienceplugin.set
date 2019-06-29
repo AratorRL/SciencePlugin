@@ -2,7 +2,7 @@ Science plugin
 1|Show HUD|showHUD
 1|Show car RBState|showCarRBState
 1|Show ball RBState|showBallRBState
-1|Show car derived info|showCarDerivedInfo
+1|Show calculated car info|showCalculatedCarInfo
 1|Show input|showInput
 1|Show yaw|showYaw
 1|Override input|overrideInput

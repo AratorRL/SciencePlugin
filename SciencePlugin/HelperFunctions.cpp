@@ -169,3 +169,32 @@ Rotator sp::quatToRot(Quat q)
 
 	return Rotator(pitch, yaw, roll);
 }
+
+Quat sp::rotToQuat(Rotator rot)
+{
+	if (rot.Roll > 16384)
+	{
+		rot.Roll = -32768 - (32768 - rot.Roll);
+	}
+	if (rot.Yaw < -16384)
+	{
+		rot.Yaw = 32768 + (32768 + rot.Yaw);
+	}	
+	
+	float DegToRadDiv2 = (M_PI / 180) / 2;
+	float uRotToDeg = 182.044449;
+	float sinPitch = sin((rot.Pitch / uRotToDeg)*DegToRadDiv2);
+	float cosPitch = cos((rot.Pitch / uRotToDeg)*DegToRadDiv2);
+	float sinRoll = sin((rot.Roll / uRotToDeg)*DegToRadDiv2);
+	float cosRoll = cos((rot.Roll / uRotToDeg)*DegToRadDiv2);
+	float sinYaw = sin((rot.Yaw / uRotToDeg)*DegToRadDiv2);
+	float cosYaw = cos((rot.Yaw / uRotToDeg)*DegToRadDiv2);
+
+	Quat quat;
+	quat.X = (cosRoll*sinPitch*sinYaw) - (sinRoll*cosPitch*cosYaw);
+	quat.Y = ((-cosRoll)*sinPitch*cosYaw) - (sinRoll*cosPitch*sinYaw);
+	quat.Z = (cosRoll*cosPitch*sinYaw) - (sinRoll*sinPitch*cosYaw);
+	quat.W = (cosRoll*cosPitch*cosYaw) + (sinRoll*sinPitch*sinYaw);
+
+	return quat;
+}

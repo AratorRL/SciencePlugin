@@ -17,7 +17,7 @@ void CommandsManager::addCommands()
 	cvarManager->registerCvar("showHUD", "1");
 	cvarManager->registerCvar("showCarRBState", "1");
 	cvarManager->registerCvar("showBallRBState", "1");
-	cvarManager->registerCvar("showCarDerivedInfo", "1");
+	cvarManager->registerCvar("showCalculatedCarInfo", "1");
 	cvarManager->registerCvar("showInput", "1");
 	cvarManager->registerCvar("showYaw", "1");
 

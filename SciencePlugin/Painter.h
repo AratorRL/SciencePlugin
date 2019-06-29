@@ -53,7 +53,7 @@ private:
 
 	void drawPanels(CanvasWrapper cw);
 	void drawRBStatePanel(CanvasWrapper cw, std::string title, RBState rbstate, int x, int y, bool recording);
-	void drawCarDerivedInfo(CanvasWrapper cw, CarWrapper car, int x, int y);
+	void drawCalculatedCarInfo(CanvasWrapper cw, CarWrapper car, int x, int y);
 	void drawYawPlane(CanvasWrapper cw, CarWrapper car, int x, int y, float scale);
 	void drawInputPanel(CanvasWrapper cw, CarWrapper car, int x, int y);
 };
