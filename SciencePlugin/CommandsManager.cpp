@@ -14,7 +14,7 @@ void CommandsManager::addCommands()
 	cvarManager->registerCvar("recordBallInfo", "0");
 	cvarManager->registerCvar("recordEveryTick", "0");
 
-	cvarManager->registerCvar("showHUD", "1");
+	cvarManager->registerCvar("showHUD", "0");
 	cvarManager->registerCvar("showCarRBState", "1");
 	cvarManager->registerCvar("showBallRBState", "1");
 	cvarManager->registerCvar("showCalculatedCarInfo", "1");
