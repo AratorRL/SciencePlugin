@@ -31,7 +31,7 @@ namespace sp
 	std::string rot_to_string(Rotator v, int prec = 8);
 	std::string quat_to_string(Quat v, int prec = 10);
 
-	std::string to_string(float f, int prec = 2);
+	std::string to_string(float f, int prec = 3);
 	std::string to_string_scientific(float f, int prec = 11, int treshold = 4);
 
 	bool vector_eq(Vector v1, Vector v2);

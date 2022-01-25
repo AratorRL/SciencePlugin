@@ -15,7 +15,7 @@ using namespace sp;
 void Painter::initDrawables()
 {
 	gameWrapper->RegisterDrawable([this](CanvasWrapper cw) {
-		if (!gameWrapper->IsInFreeplay()) {
+		if (gameWrapper->IsInOnlineGame()) {
 			return;
 		}
 

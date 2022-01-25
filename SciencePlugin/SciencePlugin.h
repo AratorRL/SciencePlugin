@@ -26,7 +26,7 @@ public:
 	void OnViewportTick();
 	void OnSetInput();
 
-	ofstream dump_file;
+	std::ofstream dump_file;
 
 	bool recordCar;
 	bool recordBall;
