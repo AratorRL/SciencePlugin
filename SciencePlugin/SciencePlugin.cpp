@@ -15,8 +15,8 @@ using namespace sp;
 
 void SciencePlugin::onLoad()
 {
-	gameWrapper->HookEvent("Function Engine.GameViewportClient.Tick", bind(&SciencePlugin::OnViewportTick, this));
-	gameWrapper->HookEvent("Function TAGame.Car_TA.SetVehicleInput", bind(&SciencePlugin::OnSetInput, this));
+	gameWrapper->HookEvent("Function Engine.GameViewportClient.Tick", std::bind(&SciencePlugin::OnViewportTick, this));
+	gameWrapper->HookEvent("Function TAGame.Car_TA.SetVehicleInput", std::bind(&SciencePlugin::OnSetInput, this));
 
 	logger.cvarManager = this->cvarManager;
 	
@@ -44,7 +44,7 @@ void SciencePlugin::onUnLoad()
 
 void SciencePlugin::OnViewportTick()
 {
-	if (!gameWrapper->IsInFreeplay()) {
+	if (gameWrapper->IsInOnlineGame() || !(gameWrapper->IsInFreeplay() || gameWrapper->IsInCustomTraining() || gameWrapper->IsInGame())) {
 		return;
 	}
 
@@ -186,7 +186,7 @@ void SciencePlugin::OnViewportTick()
 
 void SciencePlugin::OnSetInput()
 {
-	if (!gameWrapper->IsInFreeplay()) {
+	if (gameWrapper->IsInOnlineGame() || !(gameWrapper->IsInFreeplay() || gameWrapper->IsInCustomTraining() || gameWrapper->IsInGame())) {
 		return;
 	}
 	

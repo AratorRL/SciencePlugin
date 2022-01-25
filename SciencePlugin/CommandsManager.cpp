@@ -5,6 +5,7 @@
 #include "bakkesmod\wrappers\GameObject\CarWrapper.h"
 #include "bakkesmod\wrappers\arraywrapper.h"
 #include "bakkesmod\wrappers\GameObject\CarComponent\VehicleSimWrapper.h"
+#include <string>
 
 using namespace sp;
 
@@ -34,7 +35,7 @@ void CommandsManager::addCommands()
 
 	cvarManager->registerCvar("turnRightAt1000", "0");
 
-	cvarManager->registerNotifier("resetInputs", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("resetInputs", [this](std::vector<std::string> commands) {
 		cvarManager->getCvar("macroThrottle").setValue(0.0f);
 		cvarManager->getCvar("macroSteer").setValue(0.0f);
 		cvarManager->getCvar("macroHandbrake").setValue(0);
@@ -43,7 +44,7 @@ void CommandsManager::addCommands()
 		logger.log(logString);
 	}, "", 0);
 
-	cvarManager->registerNotifier("setBallRBLocation", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setBallRBLocation", [this](std::vector<std::string> commands) {
 		if (commands.size() > 3)
 		{
 			float x = get_safe_float(commands.at(1));
@@ -67,7 +68,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("setBallRBLinearVelocity", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setBallRBLinearVelocity", [this](std::vector<std::string> commands) {
 		if (commands.size() > 3)
 		{
 			float x = get_safe_float(commands.at(1));
@@ -91,7 +92,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("setBallRBAngularVelocity", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setBallRBAngularVelocity", [this](std::vector<std::string> commands) {
 		if (commands.size() > 3)
 		{
 			float x = get_safe_float(commands.at(1));
@@ -115,7 +116,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("setBallRBQuaternion", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setBallRBQuaternion", [this](std::vector<std::string> commands) {
 		if (commands.size() > 4)
 		{
 			float w = get_safe_float(commands.at(1));
@@ -141,7 +142,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("setCarRBLocation", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setCarRBLocation", [this](std::vector<std::string> commands) {
 		if (commands.size() > 3)
 		{
 			float x = get_safe_float(commands.at(1));
@@ -167,7 +168,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("setCarRBLinearVelocity", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setCarRBLinearVelocity", [this](std::vector<std::string> commands) {
 		if (commands.size() > 3)
 		{
 			float x = get_safe_float(commands.at(1));
@@ -193,7 +194,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("setCarRBAngularVelocity", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setCarRBAngularVelocity", [this](std::vector<std::string> commands) {
 		if (commands.size() > 3)
 		{
 			float x = get_safe_float(commands.at(1));
@@ -219,7 +220,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("setCarRBQuaternion", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setCarRBQuaternion", [this](std::vector<std::string> commands) {
 		if (commands.size() > 4)
 		{
 			float w = get_safe_float(commands.at(1));
@@ -247,7 +248,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("resetCar", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("resetCar", [this](std::vector<std::string> commands) {
 		if (commands.size() > 0)
 		{
 			ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
@@ -267,7 +268,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("slideRight", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("slideRight", [this](std::vector<std::string> commands) {
 		if (commands.size() > 1)
 		{
 			std::string s = commands.at(1);
@@ -287,7 +288,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("setMass", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setMass", [this](std::vector<std::string> commands) {
 		if (commands.size() > 1)
 		{
 			std::string s = commands.at(1);
@@ -296,13 +297,13 @@ void CommandsManager::addCommands()
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			gameCar.SetMass(f);
-			std::string logString = "RB mass set to " + to_string(s);
+			std::string logString = "RB mass set to " + std::to_string(f);
 			logger.log(logString);
 		}
 	}, "", 0);
 
 
-	cvarManager->registerNotifier("setOnGround", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setOnGround", [this](std::vector<std::string> commands) {
 		if (commands.size() > 1)
 		{
 			std::string s = commands.at(1);
@@ -311,12 +312,12 @@ void CommandsManager::addCommands()
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			gameCar.SetbOnGround((unsigned long)b);
-			std::string logString = "bOnGround set to " + to_string(s);
+			std::string logString = "bOnGround set to " + std::to_string(b);
 			logger.log(logString);
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("setUseAckermannSteering", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setUseAckermannSteering", [this](std::vector<std::string> commands) {
 		if (commands.size() > 1)
 		{
 			std::string s = commands.at(1);
@@ -325,12 +326,12 @@ void CommandsManager::addCommands()
 			CarWrapper gameCar = tutorial.GetGameCar();
 
 			gameCar.GetVehicleSim().SetbUseAckermannSteering(b);
-			std::string logString = "bUseAckermannSteering set to " + to_string(s);
+			std::string logString = "bUseAckermannSteering set to " + std::to_string(b);
 			logger.log(logString);
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getUseAckermannSteering", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getUseAckermannSteering", [this](std::vector<std::string> commands) {
 		ServerWrapper tutorial = gameWrapper->GetGameEventAsServer();
 		CarWrapper gameCar = tutorial.GetGameCar();
 
@@ -339,7 +340,7 @@ void CommandsManager::addCommands()
 		logger.log(logString);
 	}, "", 0);
 
-	cvarManager->registerNotifier("setDriveTorque", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setDriveTorque", [this](std::vector<std::string> commands) {
 		if (commands.size() > 1)
 		{
 			auto s = commands.at(1);
@@ -353,7 +354,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getDriveTorque", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getDriveTorque", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -361,7 +362,7 @@ void CommandsManager::addCommands()
 		logger.log(logString);
 	}, "", 0);
 
-	cvarManager->registerNotifier("setBrakeTorque", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setBrakeTorque", [this](std::vector<std::string> commands) {
 		if (commands.size() > 1)
 		{
 			auto s = commands.at(1);
@@ -375,7 +376,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getBrakeTorque", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getBrakeTorque", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -383,7 +384,7 @@ void CommandsManager::addCommands()
 		logger.log(logString);
 	}, "", 0);
 
-	cvarManager->registerNotifier("setStopThreshold", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setStopThreshold", [this](std::vector<std::string> commands) {
 		if (commands.size() > 1)
 		{
 			auto s = commands.at(1);
@@ -397,7 +398,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getStopThreshold", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getStopThreshold", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -405,7 +406,7 @@ void CommandsManager::addCommands()
 		logger.log(logString);
 	}, "", 0);
 
-	cvarManager->registerNotifier("setIdleBrakeFactor", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setIdleBrakeFactor", [this](std::vector<std::string> commands) {
 		if (commands.size() > 1)
 		{
 			auto s = commands.at(1);
@@ -419,7 +420,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getIdleBrakeFactor", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getIdleBrakeFactor", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -427,7 +428,7 @@ void CommandsManager::addCommands()
 		logger.log(logString);
 	}, "", 0);
 
-	cvarManager->registerNotifier("setOppositeBrakeFactor", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setOppositeBrakeFactor", [this](std::vector<std::string> commands) {
 		if (commands.size() > 1)
 		{
 			auto s = commands.at(1);
@@ -441,7 +442,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getOppositeBrakeFactor", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getOppositeBrakeFactor", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -449,7 +450,7 @@ void CommandsManager::addCommands()
 		logger.log(logString);
 	}, "", 0);
 
-	cvarManager->registerNotifier("getSuspensionStiffness", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getSuspensionStiffness", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -464,7 +465,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getSuspensionDampingCompression", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getSuspensionDampingCompression", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -479,7 +480,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getSuspensionDampingRelaxation", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getSuspensionDampingRelaxation", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -494,7 +495,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getSuspensionTravel", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getSuspensionTravel", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -509,7 +510,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getSuspensionMaxRaise", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getSuspensionMaxRaise", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -524,7 +525,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("setSpinSpeedDecayRate", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setSpinSpeedDecayRate", [this](std::vector<std::string> commands) {
 		if (commands.size() > 1)
 		{
 			auto s = commands.at(1);
@@ -545,7 +546,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getSpinSpeedDecayRate", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getSpinSpeedDecayRate", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -560,7 +561,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("setSpinSpeed", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("setSpinSpeed", [this](std::vector<std::string> commands) {
 		if (commands.size() > 2)
 		{
 			auto s = commands.at(1);
@@ -580,7 +581,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getSpinSpeed", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getSpinSpeed", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -595,7 +596,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getSteer", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getSteer", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -610,7 +611,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getSuspensionDistance", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getSuspensionDistance", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
@@ -625,7 +626,7 @@ void CommandsManager::addCommands()
 		}
 	}, "", 0);
 
-	cvarManager->registerNotifier("getRefWheelLocation", [this](std::vector<string> commands) {
+	cvarManager->registerNotifier("getRefWheelLocation", [this](std::vector<std::string> commands) {
 		ServerWrapper training = gameWrapper->GetGameEventAsServer();
 		CarWrapper car = training.GetGameCar();
 		auto vehicleSim = car.GetVehicleSim();
