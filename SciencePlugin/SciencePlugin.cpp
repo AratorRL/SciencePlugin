@@ -44,7 +44,7 @@ void SciencePlugin::onUnLoad()
 
 void SciencePlugin::OnViewportTick()
 {
-	if (gameWrapper->IsInOnlineGame()) {
+	if (gameWrapper->IsInOnlineGame() || !(gameWrapper->IsInFreeplay() || gameWrapper->IsInCustomTraining() || gameWrapper->IsInGame())) {
 		return;
 	}
 
@@ -186,7 +186,7 @@ void SciencePlugin::OnViewportTick()
 
 void SciencePlugin::OnSetInput()
 {
-	if (!gameWrapper->IsInOnlineGame()) {
+	if (gameWrapper->IsInOnlineGame() || !(gameWrapper->IsInFreeplay() || gameWrapper->IsInCustomTraining() || gameWrapper->IsInGame())) {
 		return;
 	}
 	
