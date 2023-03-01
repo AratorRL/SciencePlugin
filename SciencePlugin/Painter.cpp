@@ -170,6 +170,8 @@ void Painter::drawCalculatedCarInfo(CanvasWrapper cw, CarWrapper car, int x, int
 	auto linLocalUp = Vector::dot(lin, up);
 	Vector linLocal = Vector(linLocalFwd, linLocalRight, linLocalUp);
 
+	Vector angLocal{ Vector::dot(ang, fwd), Vector::dot(ang, right), Vector::dot(ang, up) };
+
 	auto lonSpeed = Vector::dot(horVel, fwd);
 	auto latSpeed = Vector::dot(horVel, right);
 
@@ -189,7 +191,7 @@ void Painter::drawCalculatedCarInfo(CanvasWrapper cw, CarWrapper car, int x, int
 	Vector2 pos = { x, y };
 	cw.SetPosition(pos);
 	cw.SetColor(COLOR_PANEL);
-	Vector2 box = { 550, 410 };
+	Vector2 box = { 550, marginTop + 14 * lineSpacing };
 	cw.FillBox(box);
 	cw.SetColor(COLOR_TEXT);
 
@@ -211,6 +213,13 @@ void Painter::drawCalculatedCarInfo(CanvasWrapper cw, CarWrapper car, int x, int
 	this->drawStringAt(cw, sp::to_string(linLocal.X, 4), x + marginLeft + nameSpacing, y + currentLine);
 	this->drawStringAt(cw, sp::to_string(linLocal.Y, 4), x + marginLeft + nameSpacing + vecSpacing, y + currentLine);
 	this->drawStringAt(cw, sp::to_string(linLocal.Z, 4), x + marginLeft + nameSpacing + vecSpacing * 2, y + currentLine);
+
+	currentLine += lineSpacing;
+
+	this->drawStringAt(cw, "Local ang.velocity", x + marginLeft, y + currentLine);
+	this->drawStringAt(cw, sp::to_string(angLocal.X, 4), x + marginLeft + nameSpacing, y + currentLine);
+	this->drawStringAt(cw, sp::to_string(angLocal.Y, 4), x + marginLeft + nameSpacing + vecSpacing, y + currentLine);
+	this->drawStringAt(cw, sp::to_string(angLocal.Z, 4), x + marginLeft + nameSpacing + vecSpacing * 2, y + currentLine);
 
 	currentLine += lineSpacing;
 
