@@ -1,31 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SciencePlugin", "SciencePlugin\SciencePlugin.vcxproj", "{F3A92463-5D33-4E6C-9A96-DA3E4F7ECAFF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SciencePlugin", "SciencePlugin\SciencePlugin.vcxproj", "{57544DFD-E1B7-47FA-9E42-175CB92576A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F3A92463-5D33-4E6C-9A96-DA3E4F7ECAFF}.Debug|x64.ActiveCfg = Debug|x64
-		{F3A92463-5D33-4E6C-9A96-DA3E4F7ECAFF}.Debug|x64.Build.0 = Debug|x64
-		{F3A92463-5D33-4E6C-9A96-DA3E4F7ECAFF}.Debug|x86.ActiveCfg = Debug|Win32
-		{F3A92463-5D33-4E6C-9A96-DA3E4F7ECAFF}.Debug|x86.Build.0 = Debug|Win32
-		{F3A92463-5D33-4E6C-9A96-DA3E4F7ECAFF}.Release|x64.ActiveCfg = Release|x64
-		{F3A92463-5D33-4E6C-9A96-DA3E4F7ECAFF}.Release|x64.Build.0 = Release|x64
-		{F3A92463-5D33-4E6C-9A96-DA3E4F7ECAFF}.Release|x86.ActiveCfg = Release|Win32
-		{F3A92463-5D33-4E6C-9A96-DA3E4F7ECAFF}.Release|x86.Build.0 = Release|Win32
+		{57544DFD-E1B7-47FA-9E42-175CB92576A8}.Release|x64.ActiveCfg = Release|x64
+		{57544DFD-E1B7-47FA-9E42-175CB92576A8}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {15EA4753-9BA4-4F78-900D-65B9D097DA12}
+		SolutionGuid = {97F4DB20-41AE-481C-9AF3-70396D3A4669}
 	EndGlobalSection
 EndGlobal
