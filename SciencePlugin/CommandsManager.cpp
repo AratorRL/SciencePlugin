@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "CommandsManager.h"
 #include "HelperFunctions.h"
 #include "utils\parser.h"

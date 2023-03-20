@@ -1,13 +1,22 @@
 #pragma once
-#pragma comment (lib, "pluginsdk.lib")
-#include "bakkesmod\plugin\bakkesmodplugin.h"
+
+#include "bakkesmod/plugin/bakkesmodplugin.h"
+#include "bakkesmod/plugin/pluginwindow.h"
+#include "bakkesmod/plugin/PluginSettingsWindow.h"
+
 #include <fstream>
 #include <sstream>
+#include <string>
+
+#include "GuiBase.h"
 #include "Logger.h"
 #include "CommandsManager.h"
 #include "Painter.h"
 
-class SciencePlugin : public BakkesMod::Plugin::BakkesModPlugin
+#include "version.h"
+constexpr auto plugin_version = stringify(VERSION_MAJOR) "." stringify(VERSION_MINOR) "." stringify(VERSION_PATCH) "." stringify(VERSION_BUILD);
+
+class SciencePlugin : public BakkesMod::Plugin::BakkesModPlugin, public SettingsWindowBase
 {
 private:
 	Logger logger;
@@ -22,9 +31,9 @@ private:
 
 public:
 	virtual void onLoad();
-	virtual void onUnLoad();
 	void OnViewportTick();
 	void OnSetInput();
+	void RenderSettings() override;
 
 	std::ofstream dump_file;
 

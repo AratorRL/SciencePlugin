@@ -1,20 +1,18 @@
-#include "bakkesmod\wrappers\GameEvent\TutorialWrapper.h"
-#include "bakkesmod\wrappers\GameObject\CarWrapper.h"
-#include "bakkesmod\wrappers\GameObject\BallWrapper.h"
-#include "bakkesmod\wrappers\arraywrapper.h"
-#include "bakkesmod\wrappers\CVarWrapper.h"
-#include "bakkesmod\wrappers\CVarManagerWrapper.h"
-#include "utils\parser.h"
+#include "pch.h"
 
 #include "SciencePlugin.h"
 #include "HelperFunctions.h"
 
-BAKKESMOD_PLUGIN(SciencePlugin, "Science plugin", "1.0", PLUGINTYPE_FREEPLAY)
+BAKKESMOD_PLUGIN(SciencePlugin, "Science plugin", plugin_version, PLUGINTYPE_FREEPLAY)
+
+std::shared_ptr<CVarManagerWrapper> _globalCvarManager;
 
 using namespace sp;
 
 void SciencePlugin::onLoad()
 {
+	_globalCvarManager = cvarManager;
+
 	gameWrapper->HookEvent("Function Engine.GameViewportClient.Tick", std::bind(&SciencePlugin::OnViewportTick, this));
 	gameWrapper->HookEvent("Function TAGame.Car_TA.SetVehicleInput", std::bind(&SciencePlugin::OnSetInput, this));
 
@@ -35,12 +33,6 @@ void SciencePlugin::onLoad()
 	start_time = last_time;
 	
 }
-
-void SciencePlugin::onUnLoad()
-{
-
-}
-
 
 void SciencePlugin::OnViewportTick()
 {
@@ -255,5 +247,43 @@ void SciencePlugin::OnSetInput()
 
 			gameWrapper->OverrideParams(&input, sizeof(ControllerInput));
 		}
+	}
+}
+
+namespace {
+	void RenderCheckbox(std::string description, CVarWrapper cvar) {
+		if (!cvar) { return; }
+		bool enabled = cvar.getBoolValue();
+		if (ImGui::Checkbox(description.c_str(), &enabled)) {
+			cvar.setValue(enabled);
+		}
+	}
+
+	void RenderSlider(std::string description, CVarWrapper cvar, float min, float max) {
+		if (!cvar) { return; }
+		float value = cvar.getFloatValue();
+		if (ImGui::SliderFloat(description.c_str(), &value, min, max)) {
+			cvar.setValue(value);
+		}
+	}
+}
+
+void SciencePlugin::RenderSettings() {
+	ImGui::TextUnformatted("Plugin that can be used to perform scientific experiments within Rocket League.");
+
+	RenderCheckbox("Show HUD", cvarManager->getCvar("showHUD"));
+	RenderCheckbox("Show car RBState", cvarManager->getCvar("showCarRBState"));
+	RenderCheckbox("Show ball RBState", cvarManager->getCvar("showBallRBState"));
+	RenderCheckbox("Show calculated car info", cvarManager->getCvar("showCalculatedCarInfo"));
+	RenderCheckbox("Show input", cvarManager->getCvar("showInput"));
+	RenderCheckbox("Show yaw", cvarManager->getCvar("showYaw"));
+	RenderCheckbox("Override input", cvarManager->getCvar("overrideInput"));
+	RenderSlider("Throttle", cvarManager->getCvar("macroThrottle"), -1, 1);
+	RenderSlider("Steer", cvarManager->getCvar("macroSteer"), -1, 1);
+	RenderCheckbox("Handbrake", cvarManager->getCvar("macroHandbrake"));
+	if (ImGui::Button("Reset inputs")) {
+		gameWrapper->Execute([this](GameWrapper* gw) {
+			cvarManager->executeCommand("resetInputs");
+			});
 	}
 }

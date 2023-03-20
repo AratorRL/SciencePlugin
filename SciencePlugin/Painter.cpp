@@ -1,8 +1,4 @@
-#include "bakkesmod\wrappers\GameEvent\TutorialWrapper.h"
-#include "bakkesmod\wrappers\GameObject\CarWrapper.h"
-#include "bakkesmod\wrappers\GameObject\CarComponent\VehicleSimWrapper.h"
-#include "bakkesmod\wrappers\arraywrapper.h"
-#include "bakkesmod\wrappers\wrapperstructs.h"
+#include "pch.h"
 
 #include "Painter.h"
 #include "HelperFunctions.h"
